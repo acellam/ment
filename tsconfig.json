@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "declaration": false,
+    "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
+    "lib": [ "es2015", "dom" ],
+    "module": "amd",
+    "moduleResolution": "node",
+    "noEmitOnError": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noLib": false,
+    "outDir": "dist/tsc/",
+    "removeComments": true,
+    "rootDir": "./",
+    "sourceMap": true,
+    "strict": true,
+    "strictFunctionTypes": false,
+    "skipLibCheck": false,
+    "target": "es5",
+    "types": [ "jasmine", "core-js" ],
+    "watch": false
+  },
+  "exclude": [
+    "node_modules/"
+  ]
+}
