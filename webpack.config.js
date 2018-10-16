@@ -4,10 +4,9 @@ const CopyWebpackPlugin = require("copy-webpack-plugin");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 const pkg = require("./package");
-const appName = pkg.widgetName;
 const name = pkg.appName.toLowerCase();
 
-const widgetConfig = {
+const clientConfig = {
     entry: `./src/client/index.ts`,
     output: {
         path: path.resolve(__dirname, "dist"),
@@ -77,4 +76,4 @@ const widgetConfig = {
     ]
 };
 
-module.exports = [widgetConfig];
+module.exports = [clientConfig];
