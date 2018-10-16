@@ -6,6 +6,7 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const pkg = require("./package");
 const name = pkg.appName.toLowerCase();
 
+// Client configuration
 const clientConfig = {
     entry: `./src/client/index.ts`,
     output: {
@@ -76,4 +77,44 @@ const clientConfig = {
     ]
 };
 
-module.exports = [clientConfig];
+// Server configuration
+const serverConfig = {
+    entry: `./src/server/index.ts`,
+    output: {
+        path: path.resolve(__dirname, "dist"),
+        filename: 'server.js'
+    },
+    resolve: {
+        extensions: ['.ts', '.js']
+    },
+    target: 'node',
+    devServer: {
+        historyApiFallback: true,
+        noInfo: true
+    },
+    performance: {
+        hints: false
+    },
+    module: {
+        rules: [
+            {
+                test: /\.tsx?$/,
+                loader: 'ts-loader',
+                exclude: /node_modules/
+            }
+        ]
+    },
+    devtool: "source-map",
+    plugins: [
+        new CopyWebpackPlugin([
+            { from: "src/**/*.js" }
+        ], {
+            copyUnmodified: true
+        }),
+        new webpack.LoaderOptionsPlugin({
+            debug: true
+        })
+    ]
+};
+
+module.exports = [ clientConfig, serverConfig ];

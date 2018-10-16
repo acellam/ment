@@ -1,10 +1,14 @@
 {
   "name": "metvn",
   "appName": "Metvn",
+  "cleintVersion": "1.0.0",
+  "serverVersion": "1.0.0",
   "version": "1.0.0",
   "description": "A boilerplate for apps built using vue, expressjs, node, mongodb using typescript",
   "scripts": {
     "start": "nodemon --watch webpack.config.js --watch Gruntfile.js --exec grunt",
+    "server:start": "node ./dist/server.js",
+    "server:stop": "dist/index.js",
     "emit": "tsc",
     "pretest": "tsc && npm run lint && npm run build",
     "test": "npm run test:unit",
@@ -30,9 +34,12 @@
     "url": "https://github.com/mistaguy/metvn/issues"
   },
   "devDependencies": {
+    "@types/body-parser": "^1.16.4",
     "@types/classnames": "^2.2.3",
     "@types/core-js": "^0.9.44",
+    "@types/dotenv": "^4.0.0",
     "@types/enzyme": "^3.1.6",
+    "@types/express": "^4.11.0",
     "@types/jasmine": "^2.8.3",
     "@types/karma": "^1.7.3",
     "@types/webdriverio": "^4.8.7",
@@ -93,7 +100,10 @@
     "webpack-merge": "^4.1.0"
   },
   "dependencies": {
+    "body-parser": "^1.17.2",
     "classnames": "^2.2.5",
+    "dotenv": "^4.0.0",
+    "express": "^4.16.2",
     "npm": "^6.2.0",
     "vue": "^2.5.2",
     "vue-class-component": "^6.0.0",
