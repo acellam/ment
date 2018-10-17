@@ -1,8 +1,9 @@
 import { Application } from "express";
-import contact from "./api/contact";
-import home from "./api/home";
 
-export class Routes {
+import home from "./api/home";
+import contact from "./api/contact";
+
+export class Api {
     public routes(app: Application): void {
         home.routes(app);
         contact.routes(app);

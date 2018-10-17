@@ -2,18 +2,18 @@ import * as express from "express";
 import * as bodyParser from "body-parser";
 import * as mongoose from "mongoose";
 
-import { Routes } from "./routes";
+import { Api } from "./api";
 
 class App {
 
     public app: express.Application;
-    public routePrv: Routes = new Routes();
+    public api: Api = new Api();
     public mongoUrl = "mongodb://127.0.0.1:27017/metvn";
 
     constructor() {
         this.app = express();
         this.config();
-        this.routePrv.routes(this.app);
+        this.api.routes(this.app);
 
         this.mongoSetup();
     }
