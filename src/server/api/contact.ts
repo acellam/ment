@@ -1,44 +1,22 @@
-import { Application, Request, Response } from "express";
+import { Application } from "express";
+import { ContactController } from "../controllers/contact";
 
 export class Contact {
+    public contactController: ContactController = new ContactController();
+
     public routes(app: Application): void {
         app.route("/contact")
             // GET endpoint
-            .get((_req: Request, res: Response) => {
-                // Get all contacts
-                res.status(200).send({
-                    message: "GET request successfulll!!!!"
-                });
-            })
+            .get(this.contactController.getContacts)
             // POST endpoint
-            .post((_req: Request, res: Response) => {
-                // Create new contact
-                res.status(200).send({
-                    message: "POST request successfulll!!!!"
-                });
-            });
+            .post(this.contactController.addNewContact);
 
         // Contact detail
         app.route("/contact/:contactId")
         // get specific contact
-            .get((_req: Request, res: Response) => {
-                // Get a single contact detail
-                res.status(200).send({
-                    message: "GET request successfulll!!!!"
-                });
-            })
-            .put((_req: Request, res: Response) => {
-                // Update a contact
-                res.status(200).send({
-                    message: "PUT request successfulll!!!!"
-                });
-            })
-            .delete((_req: Request, res: Response) => {
-                // Delete a contact
-                res.status(200).send({
-                    message: "DELETE request successfulll!!!!"
-                });
-            });
+            .get(this.contactController.getContactWithID)
+            .put(this.contactController.updateContact)
+            .delete(this.contactController.deleteContact);
     }
 }
 

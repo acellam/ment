@@ -102,6 +102,7 @@
   "dependencies": {
     "@types/body-parser": "^1.16.4",
     "@types/mongodb": "^3.1.12",
+    "@types/mongoose": "^5.2.19",
     "@types/sha1": "^1.1.1",
     "body-parser": "^1.17.2",
     "classnames": "^2.2.5",
