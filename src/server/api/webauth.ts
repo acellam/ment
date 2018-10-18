@@ -1,4 +1,4 @@
-import { Application } from "express";
+import { Application, Request, Response } from "express";
 import { WebAuthController } from "../controllers/webauth";
 
 export class WebAuth {
@@ -38,7 +38,14 @@ export class WebAuth {
          *      "user": "57e12cab65c0c892381b8b44"
          *    }
          */
-        app.route(process.env.API_BASE + "/login")
+        app.route(process.env.API_BASE + "login")
+            // GET endpoint
+            .get((_req: Request, res: Response) => {
+                // Get all contacts
+                res.status(200).send({
+                    message: `Use post to login`
+                });
+            })
             // POST endpoint
             .post(this.webAuthController.login);
     }

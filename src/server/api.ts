@@ -13,7 +13,8 @@ export class Api {
 
         // If no route is matched by now, it must be a 404
         app.use((_req: Request, res: Response, next) => {
-            res.status(404).json({ error: "Endpoint not found" });
+            const path = _req.path;
+            res.status(404).json({ error: "Endpoint not found", path });
             next();
         });
 

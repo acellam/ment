@@ -80,5 +80,3 @@ export class WebAuthController {
     }
 
 }
-
-export default new WebAuthController();

@@ -3,13 +3,15 @@ import * as express from "express";
 import * as bodyParser from "body-parser";
 import * as expressValidator from "express-validator";
 import database from "../config/database";
-import webAuthController from "./controllers/webauth";
+import { WebAuthController } from "./controllers/webauth";
 
 import { Api } from "./api";
 
 class App {
     public app: express.Application;
     public api: Api = new Api();
+    public webAuthController: WebAuthController = new WebAuthController();
+
 
     constructor() {
         this.app = express();
@@ -26,14 +28,15 @@ class App {
         this.app.use(bodyParser.json());
         // support application/x-www-form-urlencoded post data
         this.app.use(bodyParser.urlencoded({ extended: false }));
-
         this.app.use(expressValidator());
-        this.app.use(webAuthController.initialize());
+        this.app.use(this.webAuthController.initialize());
 
         this.app.all(process.env.API_BASE + "*", (req, res, next) => {
-            // if (req.path.includes(process.env.API_BASE + "login")) return next();
+            if (req.path.includes(process.env.API_BASE + "login")) {
+                return next();
+            }
 
-            return webAuthController.authenticate((err: any, user: any, info: any) => {
+            return this.webAuthController.authenticate((err: any, user: any, info: any) => {
                 if (err) { return next(err); }
                 if (!user) {
                     if (info.name === "TokenExpiredError") {
