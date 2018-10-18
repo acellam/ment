@@ -107,6 +107,7 @@ const serverConfig = {
     devtool: "source-map",
     plugins: [
         new CopyWebpackPlugin([
+            { from: ".env"},
             { from: "src/**/*.js" }
         ], {
             copyUnmodified: true
