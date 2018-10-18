@@ -1,10 +1,7 @@
 /* tslint:disable */
-import * as assign from "core-js/fn/object/assign";
 import * as keys from "core-js/fn/object/keys";
-import * as from from "core-js/fn/array/from";
 import * as find from "core-js/fn/array/find";
 
-import { ReactChild, ReactElement, isValidElement } from "react";
 
 export type ElementStructure = string | jasmine.Any | ElementJson;
 export type ElementJson = { type: string, props: { [name: string]: any }, children: ElementStructure[] };
@@ -132,72 +129,6 @@ export function findDifference(expected: ElementStructure | ElementStructure[], 
     }
 }
 
-export function toElementStructure(node: any): ElementStructure | ElementStructure[] {
-    if (node == null) return "";
-    if (typeof node === "object" && "nodes" in node) {
-        const nodes = node.getElements();
-        node = nodes.length > 1 ? nodes : node.getElement(0);
-    }
-
-    if (Array.isArray(node)) return node.map(n => toElementStructure(n) as ElementStructure);
-    if (node instanceof HTMLElement) return domToStructure(node);
-    return reactToStructure(node as ReactChild | jasmine.Any);
-
-    function domToStructure(domNode: HTMLElement): ElementStructure{
-        const type = domNode.nodeName.toLowerCase();
-        if (type === "#text") {
-            return domNode.nodeValue || "";
-        }
-
-        const props: { [name: string]: string } = {};
-        from(domNode.attributes || [])
-            .filter(attr => attr.nodeName.indexOf("data-react") === -1)
-            .forEach(attr => props[attr.nodeName] = attr.nodeValue || "");
-        if ("class" in props) {
-            props["className"] = props["class"];
-            delete props["class"];
-        }
-
-        const children = from(domNode.childNodes)
-            .filter((child: Node) => child.nodeName !== "#comment")
-            .map(domToStructure as any);
-
-        return { type, props, children } as any;
-    }
-
-    function reactToStructure(child: ReactChild | jasmine.Any): ElementStructure {
-        if (child == null) return "";
-        if (typeof child === "string" || typeof child === "number" || typeof child === "boolean") return child.toString();
-        if (isJasmineAny(child)) return child; // todo: disallow Any inside createElement
-        if (isValidElement(child)) return elemToStructure(child);
-        throw new Error(`Cannot convert ${jasmine.pp(child)} to element structure.\n`
-            + `Correct usage is: expect(mount(...)).toBeElement($("div")) or expect(shallow(...)).toBeElement($("div"))`);
-    }
-
-    function elemToStructure(reactNode: ReactElement<any>): ElementStructure {
-        const type = typeof reactNode.type === "function" ? (reactNode.type as any).name : reactNode.type;
-
-        const props = assign({}, reactNode.props);
-
-        const children: ReactChild[] = Array.isArray(props.children) ? props.children : (props.children ? [ props.children ] : []);
-        delete props.children;
-
-        for (let propName in props) {
-            const propValue = props[propName];
-            if (typeof propValue === "object" && propValue && "_model" in propValue) {
-                props[propName] = "Element " + propValue.typeName + " (" + propValue.id + ")";
-            }
-            if (isValidElement(propValue)) {
-                props[propName] = elemToStructure(propValue);
-            }
-            if (propValue === undefined) {
-                delete props[propName];
-            }
-        }
-
-        return { type, props, children: children.filter(c => c != null).map(reactToStructure) };
-    }
-}
 
 function isJasmineAny(obj: any): obj is jasmine.Any {
     return obj != null && typeof obj.asymmetricMatch === "function";

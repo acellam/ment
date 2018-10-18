@@ -24,9 +24,9 @@ export class Database {
         const dbPort = process.env.DB_PORT || 27017;
 
         const options = {
-            useMongoClient: true,
+            pass: "",
             user: "",
-            pass: ""
+            useNewUrlParser: true
         };
 
         if (process.env.DB_AUTH === "true") {
@@ -34,7 +34,10 @@ export class Database {
             options.pass = process.env.DB_PASS as string;
         }
 
-        mongoose.connect(`mongodb://${dbAddress}:${dbPort}/${dbName}`, options).catch(err => {
+        mongoose.set("useCreateIndex", true);
+        mongoose
+            .connect(`mongodb://${dbAddress}:${dbPort}/${dbName}`, options)
+            .catch(err => {
             if (err.message.indexOf("ECONNREFUSED") !== -1) {
                 // tslint:disable-next-line
                 console.error("Error: The server was not able to reach MongoDB. Maybe it's not running?");

@@ -3,7 +3,7 @@ import * as express from "express";
 import * as bodyParser from "body-parser";
 import * as expressValidator from "express-validator";
 import database from "../config/database";
-import webauth from "./controllers/webauth";
+import webAuthController from "./controllers/webauth";
 
 import { Api } from "./api";
 
@@ -28,12 +28,12 @@ class App {
         this.app.use(bodyParser.urlencoded({ extended: false }));
 
         this.app.use(expressValidator());
-        this.app.use(webauth.initialize());
+        this.app.use(webAuthController.initialize());
 
         this.app.all(process.env.API_BASE + "*", (req, res, next) => {
             if (req.path.includes(process.env.API_BASE + "login")) return next();
 
-            return webauth.authenticate((err: any, user: any, info: any) => {
+            return webAuthController.authenticate((err: any, user: any, info: any) => {
                 if (err) { return next(err); }
                 if (!user) {
                     if (info.name === "TokenExpiredError") {

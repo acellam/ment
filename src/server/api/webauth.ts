@@ -1,6 +1,6 @@
 import { Application } from "express";
 
-import webAuth from "../controllers/webauth";
+import webAuthController from "../controllers/webauth";
 
 export class WebAuth {
     public routes(app: Application): void {
@@ -38,7 +38,7 @@ export class WebAuth {
          *    }
          */
         app.route("/login")
-            .post(webAuth.login);
+            .post(webAuthController.login);
     }
 }
 
