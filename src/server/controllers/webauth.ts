@@ -7,7 +7,7 @@ import { ExtractJwt, Strategy } from "passport-jwt";
 import { IUserDocument, User } from "../models/user";
 import * as dotenv from "dotenv";
 
-class WebAuthController {
+export class WebAuthController {
 
     public initialize = () => {
         dotenv.config();

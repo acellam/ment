@@ -2,7 +2,7 @@ import { Application, Request, Response } from "express";
 
 export class Home {
     public routes(app: Application): void {
-        app.route("/")
+        app.route(process.env.API_BASE + "/")
         // GET endpoint
             .get((_req: Request, res: Response) => {
                 // Get all contacts

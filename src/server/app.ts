@@ -31,7 +31,7 @@ class App {
         this.app.use(webAuthController.initialize());
 
         this.app.all(process.env.API_BASE + "*", (req, res, next) => {
-            if (req.path.includes(process.env.API_BASE + "login")) return next();
+            // if (req.path.includes(process.env.API_BASE + "login")) return next();
 
             return webAuthController.authenticate((err: any, user: any, info: any) => {
                 if (err) { return next(err); }

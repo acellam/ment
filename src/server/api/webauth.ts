@@ -1,8 +1,9 @@
 import { Application } from "express";
-
-import webAuthController from "../controllers/webauth";
+import { WebAuthController } from "../controllers/webauth";
 
 export class WebAuth {
+    public webAuthController: WebAuthController = new WebAuthController();
+
     public routes(app: Application): void {
         /**
          * @api {post} /api/v1/login Generate a token
@@ -37,8 +38,9 @@ export class WebAuth {
          *      "user": "57e12cab65c0c892381b8b44"
          *    }
          */
-        app.route("/login")
-            .post(webAuthController.login);
+        app.route(process.env.API_BASE + "/login")
+            // POST endpoint
+            .post(this.webAuthController.login);
     }
 }
 
