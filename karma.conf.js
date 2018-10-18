@@ -3,9 +3,6 @@ const path = require("path");
 Object.assign(webpackConfig, {
     devtool: "inline-source-map",
     externals: [
-        "react/lib/ExecutionEnvironment",
-        "react/lib/ReactContext",
-        "react/addons",
         "jsdom"
     ]
 });

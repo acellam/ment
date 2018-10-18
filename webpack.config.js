@@ -2,6 +2,8 @@ const webpack = require("webpack");
 const path = require("path");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
+var nodeExternals = require('webpack-node-externals');
+
 
 const pkg = require("./package");
 const name = pkg.appName.toLowerCase();
@@ -87,7 +89,8 @@ const serverConfig = {
     resolve: {
         extensions: ['.ts', '.js']
     },
-    target: 'node',
+    target: 'node', // in order to ignore built-in modules like path, fs, etc.
+    externals: [nodeExternals()], // in order to ignore all modules in node_modules folder
     devServer: {
         historyApiFallback: true,
         noInfo: true

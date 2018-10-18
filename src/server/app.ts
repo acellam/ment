@@ -2,20 +2,23 @@
 import * as express from "express";
 import * as bodyParser from "body-parser";
 import * as expressValidator from "express-validator";
-// import db from "../config/database";
+import database from "../config/database";
 import webauth from "./controllers/webauth";
 
 import { Api } from "./api";
 
 class App {
-
     public app: express.Application;
     public api: Api = new Api();
 
     constructor() {
         this.app = express();
+
         this.config();
+
         this.api.routes(this.app);
+
+        database.start();
     }
 
     private config(): void {
