@@ -7,6 +7,6 @@
     "experimentalDecorators": true,
     "removeComments": true,
     "noImplicitAny": false,
-    "outDir": "../../dist/e2e"
+    "outDir": "../dist/e2e"
   }
 }

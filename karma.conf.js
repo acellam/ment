@@ -26,12 +26,12 @@ module.exports = function(config) {
         basePath: "",
         frameworks: [ "jasmine" ],
         files: [
-            { pattern: "src/**/*.ts", watched: true },
-            { pattern: "tests/**/*.ts", watched: true },
-            "tests/test-index.js"
+            { pattern: "src/client/**/*.ts", watched: true },
+            { pattern: "src/client/tests/**/*.ts", watched: true },
+            "src/client/tests/test-index.js"
         ],
         exclude: [],
-        preprocessors: { "tests/test-index.js": [ "webpack", "sourcemap" ] },
+        preprocessors: { "src/client/tests/test-index.js": [ "webpack", "sourcemap" ] },
         webpack: webpackConfig,
         webpackServer: { noInfo: true },
         reporters: [ "spec", config.codeCoverage ? "coverage" : "kjhtml" ],

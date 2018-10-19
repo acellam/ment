@@ -3,7 +3,7 @@ var loadCoverage = require("remap-istanbul/lib/loadCoverage");
 var remap = require("remap-istanbul/lib/remap");
 var writeReport = require("remap-istanbul/lib/writeReport");
 
-var root = path.join(__dirname, "..");
+var root = path.join(__dirname, "../../../");
 
 var tsCoverage = loadCoverage(path.join(root, "dist/testresults/coverage.json"));
 var jsCoverage = {};
