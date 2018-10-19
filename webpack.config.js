@@ -2,11 +2,7 @@ const webpack = require("webpack");
 const path = require("path");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
-var nodeExternals = require('webpack-node-externals');
-
-
-const pkg = require("./package");
-const name = pkg.appName.toLowerCase();
+const nodeExternals = require('webpack-node-externals');
 
 // Client configuration
 const clientConfig = {
@@ -66,13 +62,12 @@ const clientConfig = {
     plugins: [
         new CopyWebpackPlugin([
             { from: "src/**/*.js" },
-            { from: "src/**/*.png"},
-            { from: "assets/**/*.png" },
-            { from: "src/static/**/*.html", to: './', flatten: true }
+            { from: "src/**/*.png", to: './assets', flatten: true},
+            { from: "src/client/static/**/*.html", to: './', flatten: true }
         ], {
             copyUnmodified: true
         }),
-        new ExtractTextPlugin({filename: `./src/client/ui/${name}.css`}),
+        new ExtractTextPlugin({filename: `./dist/assets/styles.css`}),
         new webpack.LoaderOptionsPlugin({
             debug: true
         })
@@ -81,7 +76,7 @@ const clientConfig = {
 
 // Server configuration
 const serverConfig = {
-    entry: `./src/server/index.ts`,
+    entry: `./src/server/server.ts`,
     output: {
         path: path.resolve(__dirname, "dist"),
         filename: 'server.js'

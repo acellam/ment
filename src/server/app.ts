@@ -2,7 +2,7 @@
 import * as express from "express";
 import * as bodyParser from "body-parser";
 import * as expressValidator from "express-validator";
-import database from "../config/database";
+import database from "./config/database";
 import { WebAuthController } from "./controllers/webauth";
 
 import { Api } from "./api";
@@ -11,7 +11,6 @@ class App {
     public app: express.Application;
     public api: Api = new Api();
     public webAuthController: WebAuthController = new WebAuthController();
-
 
     constructor() {
         this.app = express();
@@ -38,6 +37,7 @@ class App {
 
             return this.webAuthController.authenticate((err: any, user: any, info: any) => {
                 if (err) { return next(err); }
+
                 if (!user) {
                     if (info.name === "TokenExpiredError") {
                         return res.status(401).json({ message: "Your token has expired. Please generate a new one" });
@@ -45,7 +45,9 @@ class App {
                         return res.status(401).json({ message: info.message });
                     }
                 }
+
                 this.app.set("user", user);
+
                 return next();
             })(req, res, next);
         });
