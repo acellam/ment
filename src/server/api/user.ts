@@ -5,7 +5,7 @@ export class User {
     public userController: UserController = new UserController();
 
     public routes(app: Application): void {
-        app.route(process.env.API_BASE + "user")
+        app.route(`${process.env.API_BASE}user`)
             /**
              * @api {get} /api/v1/users Retrieve all users
              * @apiVersion 1.0.0
@@ -80,7 +80,7 @@ export class User {
             .post(this.userController.addNewUser);
 
         // User detail
-        app.route(process.env.API_BASE + "user/:userId")
+        app.route(`${process.env.API_BASE}user/:userId`)
             /**
              * @api {get} /api/v1/users/:id Retrieve a user
              * @apiVersion 1.0.0

@@ -7,8 +7,6 @@ const User = mongoose.model("User", UserSchema);
 export class UserController {
 
     public addNewUser(req: Request, res: Response) {
-        // tslint:disable
-        console.log(req.body);
         const newUser = new User(req.body);
 
         newUser.save((err, user) => {

@@ -36,12 +36,12 @@ class App {
 
     private secureApi() {
         this.app.use(this.webAuthController.initialize());
-        this.app.all(process.env.API_BASE + "*", (req, res, next) => {
-            if (req.path.includes(process.env.API_BASE + "login")) {
+        this.app.all(`${process.env.API_BASE}*`, (req, res, next) => {
+            if (req.path.includes(`${process.env.API_BASE}login`)) {
                 return next();
             }
-            //If test environment or development, allow creating of user
-            if (!this.isProductionEnvironment && req.path.includes(process.env.API_BASE + "user")) {
+            //If not production, allow creating of user
+            if (!this.isProductionEnvironment && req.path.includes(`${process.env.API_BASE}user`)) {
                 return next();
             }
 
