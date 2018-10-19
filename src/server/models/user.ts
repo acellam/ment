@@ -9,7 +9,7 @@ export interface IUserDocument extends Document {
     comparePassword(candidatePassword: string): Promise<boolean>;
 }
 
-export const userSchema = new Schema({
+export const UserSchema = new Schema({
     name: String,
     username: {
         type: String,
@@ -22,7 +22,7 @@ export const userSchema = new Schema({
     }
 }, { timestamps: { createdAt: "created_at", updatedAt: "updated_at" } });
 
-userSchema.pre("save", function(next) {
+UserSchema.pre("save", function(next) {
     const iUserDocument: any = this;
 
     bcrypt.hash(iUserDocument.password, 10, (_err: any, hash) => {
@@ -31,7 +31,7 @@ userSchema.pre("save", function(next) {
     });
 });
 
-userSchema.pre("update", function(next) {
+UserSchema.pre("update", function(next) {
     const iUserDocument: any = this;
 
     bcrypt.hash(iUserDocument.password, 10, (_err: any, hash) => {
@@ -40,7 +40,7 @@ userSchema.pre("update", function(next) {
     });
 });
 
-userSchema.methods.comparePassword = function(candidatePassword: string): Promise<boolean>{
+UserSchema.methods.comparePassword = function(candidatePassword: string): Promise<boolean>{
     const password = this.password;
 
     return new Promise((resolve, reject) => {
@@ -51,7 +51,7 @@ userSchema.methods.comparePassword = function(candidatePassword: string): Promis
     });
 };
 
-export const User = model<IUserDocument>("User", userSchema);
+export const User = model<IUserDocument>("User", UserSchema);
 export const cleanCollection = () => User.remove({}).exec();
 
 export default User;

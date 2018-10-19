@@ -1,6 +1,6 @@
+import { Request, Response } from "express";
 import * as mongoose from "mongoose";
 import { ContactSchema } from "../models/contact";
-import { Request, Response } from "express";
 
 const Contact = mongoose.model("Contact", ContactSchema);
 
