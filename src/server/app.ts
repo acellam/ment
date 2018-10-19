@@ -30,26 +30,31 @@ class App {
         this.app.use(expressValidator());
         // so we can get the client's IP address
         this.app.enable("trust proxy");
-        this.app.use(this.webAuthController.initialize());
 
+        this.secureApi();
+    }
+
+    private secureApi() {
+        this.app.use(this.webAuthController.initialize());
         this.app.all(process.env.API_BASE + "*", (req, res, next) => {
             if (req.path.includes(process.env.API_BASE + "login")) {
                 return next();
             }
-
             //If test environment or development, allow creating of user
             if (!this.isProductionEnvironment && req.path.includes(process.env.API_BASE + "user")) {
                 return next();
             }
 
             return this.webAuthController.authenticate((err: any, user: any, info: any) => {
-                if (err) { return next(err); }
+                if (err) {
+                    return next(err);
+                }
 
                 if (!user) {
                     if (info.name === "TokenExpiredError") {
-                        return res.status(401).json({ message: "Your token has expired. Please generate a new one" });
+                        return res.status(401).json({message: "Your token has expired. Please generate a new one"});
                     } else {
-                        return res.status(401).json({ message: info.message });
+                        return res.status(401).json({message: info.message});
                     }
                 }
 
