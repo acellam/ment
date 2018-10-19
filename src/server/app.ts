@@ -28,10 +28,17 @@ class App {
         // support application/x-www-form-urlencoded post data
         this.app.use(bodyParser.urlencoded({ extended: false }));
         this.app.use(expressValidator());
+        // so we can get the client's IP address
+        this.app.enable("trust proxy");
         this.app.use(this.webAuthController.initialize());
 
         this.app.all(process.env.API_BASE + "*", (req, res, next) => {
             if (req.path.includes(process.env.API_BASE + "login")) {
+                return next();
+            }
+
+            //If test environment or development, allow creating of user
+            if (!this.isProductionEnvironment && req.path.includes(process.env.API_BASE + "user")) {
                 return next();
             }
 
@@ -51,6 +58,10 @@ class App {
                 return next();
             })(req, res, next);
         });
+    }
+
+    private isProductionEnvironment = () =>{
+        return process.env.NODE_ENV === "development" || process.env.NODE_ENV === "test";
     }
 
 }
