@@ -7,8 +7,8 @@
   "description": "A boilerplate for apps built using vue, expressjs, node, mongodb using typescript",
   "scripts": {
     "start": "nodemon --watch webpack.config.js --watch Gruntfile.js --exec grunt",
-    "server:start": "node ./dist/server.js",
-    "server:stop": "dist/index.js",
+    "dev:server": "nodemon ./dist/server.js",
+    "dev:client": "webpack-dev-server --inline --progress --config webpack.config.js",
     "emit": "tsc",
     "pretest": "tsc && npm run lint && npm run build",
     "test": "npm run test:unit",

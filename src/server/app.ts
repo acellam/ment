@@ -30,7 +30,6 @@ class App {
         this.app.use(expressValidator());
         // so we can get the client's IP address
         this.app.enable("trust proxy");
-
         this.secureApi();
     }
 
