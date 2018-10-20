@@ -8,7 +8,7 @@
   "scripts": {
     "start": "nodemon --watch webpack.config.js --watch Gruntfile.js --exec grunt",
     "dev:server": "nodemon ./dist/server.js",
-    "dev:client": "webpack-dev-server --inline --progress --config webpack.config.js",
+    "dev:client": "webpack-dev-server --progress --config webpack.config.js",
     "emit": "tsc",
     "pretest": "tsc && npm run lint && npm run build",
     "test": "npm run test:unit",
