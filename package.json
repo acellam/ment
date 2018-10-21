@@ -34,6 +34,7 @@
     "url": "https://github.com/mistaguy/metvn/issues"
   },
   "devDependencies": {
+    "@vue/component-compiler-utils": "^2.0.0",
     "@types/classnames": "^2.2.3",
     "@types/core-js": "^0.9.44",
     "@types/dotenv": "^4.0.0",
@@ -82,6 +83,7 @@
     "tslint-eslint-rules": "^4.1.0",
     "typescript": "^2.5.3",
     "uglifyjs-webpack-plugin": "^1.1.6",
+    "vue-hot-reload-api": "^2.3.0",
     "vue-loader": "^12.0.3",
     "vue-template-compiler": "^2.5.2",
     "wdio-dot-reporter": "0.0.9",
@@ -105,6 +107,7 @@
     "@types/passport-jwt": "^3.0.1",
     "@types/supertest": "^2.0.6",
     "@types/swagger-ui-express": "^3.0.0",
+    "axios": "^0.17.0",
     "bcryptjs": "^2.4.3",
     "bluebird": "^3.5.2",
     "body-parser": "^1.18.3",

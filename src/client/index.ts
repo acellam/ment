@@ -1,5 +1,7 @@
 import Vue from "vue";
+
 import HelloComponent from "./components/Hello";
+import "./assets/stylesheets/style.scss";
 
 const v = new Vue({
     el: "#app",

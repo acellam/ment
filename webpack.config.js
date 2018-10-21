@@ -9,7 +9,8 @@ const clientConfig = {
     entry: `./src/client/index.ts`,
     output: {
         path: path.resolve(__dirname, "dist"),
-        filename: 'client.js'
+        filename: 'client.js',
+        publicPath: '/'
     },
     resolve: {
         extensions: ['.ts', '.js', '.vue', '.json'],
@@ -67,7 +68,7 @@ const clientConfig = {
         ], {
             copyUnmodified: true
         }),
-        new ExtractTextPlugin({filename: `./dist/assets/styles.css`}),
+        new ExtractTextPlugin({filename: `./assets/styles.css`}),
         new webpack.LoaderOptionsPlugin({
             debug: true
         })

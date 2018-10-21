@@ -1,5 +1,3 @@
-// src/client/components/Hello.ts
-
 import Vue from "vue";
 
 export default Vue.extend({
