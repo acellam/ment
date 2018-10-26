@@ -19,6 +19,7 @@ const clientConfig = {
             "tests": path.resolve(__dirname, "./tests")
         }
     },
+    target: 'node', // in order to ignore built-in modules like path, fs, etc.
     devServer: {
         historyApiFallback: true,
         noInfo: true

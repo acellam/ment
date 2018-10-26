@@ -32,10 +32,11 @@ describe("# WebAuth", () => {
     });
 
     it("should return token expired message", () => {
-        return request.post(process.env.API_BASE + "tasks")
+        return request.post(process.env.API_BASE + "contact")
             .set("Authorization", "JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE0OTg5Mzk1MTksInVzZXJuYW1lIjoidGVzdHVzZXIifQ.FUJcVCzZTkjDr62MCJj5gvCFvmxewmz2jotiknuVbOg")
             .send({
-                name: "Do the dishes"
+                firstName: "User one",
+                lastName: "User one last"
             })
             .expect((res: any) => res.body.message.should.equal("Your token has expired. Please generate a new one"))
             .expect(401);

@@ -24,7 +24,7 @@ module.exports = function(config) {
 
     const configuration = {
         basePath: "",
-        frameworks: [ "jasmine" ],
+        frameworks: [ "mocha", "chai" ],
         files: [
             { pattern: "src/client/**/*.ts", watched: true },
             { pattern: "src/client/tests/**/*.ts", watched: true },
@@ -34,12 +34,15 @@ module.exports = function(config) {
         preprocessors: { "src/client/tests/test-index.js": [ "webpack", "sourcemap" ] },
         webpack: webpackConfig,
         webpackServer: { noInfo: true },
-        reporters: [ "spec", config.codeCoverage ? "coverage" : "kjhtml" ],
+        reporters: [ "spec", config.codeCoverage ? "coverage" : "html" ],
         port: 9876,
         colors: true,
         logLevel: config.LOG_INFO,
         autoWatch: true,
         browsers: [ "Chrome" ],
+        mime: {
+            'text/x-typescript': ['ts','tsx']
+        },
         customLaunchers: {
             Chrome_travis_ci: {
                 base: "Chrome",

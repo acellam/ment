@@ -20,7 +20,7 @@
     "strictFunctionTypes": false,
     "skipLibCheck": false,
     "target": "es5",
-    "types": [ "jasmine", "core-js" ],
+    "types": [ "core-js" ],
     "watch": false
   },
   "exclude": [

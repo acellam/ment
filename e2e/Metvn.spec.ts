@@ -1,3 +1,5 @@
+import { expect } from "chai";
+import "mocha";
 import HomePage from "./pages/home.page";
 
 const testValue = "Hello World";
@@ -7,6 +9,6 @@ describe("METVN", () => {
         HomePage.open();
 
         const content = HomePage.span1.getHTML(false);
-        expect(content).toBe(testValue);
+        expect(content).to.equal(testValue);
     });
 });

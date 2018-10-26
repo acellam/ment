@@ -1,3 +1,4 @@
+import "mocha";
 import * as supertest from "supertest";
 import { IUserDocument, User } from "../models/user";
 import app from "../app";
