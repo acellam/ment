@@ -22,8 +22,8 @@ A boilerplate for MongoDB  ExpressJs Typscript Vue NodeJs App
 ## Issues, suggestions and feature requests
 We are actively maintaining this widget, please report any issues or suggestion for improvement at https://github.com/mistaguy/metvn/issues
 
-## Development
-Prerequisite: Install git, node package manager, webpack CLI, grunt CLI, Karma CLI
+## Development and contribution
+Prerequisite: Install git, node package manager, webpack CLI, grunt CLI, Vue CLI
 
 To contribute, fork and clone.
 
@@ -35,19 +35,35 @@ To set up the development environment, run:
 
     > npm install
 
-Create a folder named `dist` in the project root.
-
-Create a Mendix test project in the dist folder and rename its root folder to `dist/MxTestProject`. Changes to the widget code shall be automatically pushed to this test project.
-Or get the test project from [https://github.com/mistaguy/metvn/releases/latest](https://github.com/mistaguy/metvn/releases/latest)
-
 To automatically compile, bundle and push code changes to the running test project, run:
 
-    > grunt
+    > npm start
 
 To run the project unit tests with code coverage, results can be found at `dist/testresults/coverage/index.html`, run:
 
-    > npm test
+    > npm run test:unit
 
-or run the test continuously during development:
+Run the unit test continuously during development:
 
-    > karma start
+    > npm run test:dev
+
+Run the end to end test during development:
+
+    > npm run test:e2e:dev
+
+## Scripts
+While developing, you will probably rely mostly on `npm start`; however, there are additional scripts at your disposal:
+
+|`npm run <script>`|Description|
+|------------------|-----------|
+|`start`|Build the project and monitor source and config for changes and rebuild.|
+|`test`|Runs lint, build, unit tests with mocha and generates a coverage report, deploy and run e2e test|
+|`test:dev`|Runs mocha and watches for changes to re-run tests; does not generate coverage reports.|
+|`test:unit`|Runs unit tests with mocha and generates a coverage report.|
+|`test:e2e`|Runs end to end tests with remote.|
+|`test:e2e:dev`|Runs end to end tests with locally on localhost:8080|
+|`build:prod`|Build app optimized for production|
+|`build:dev`|Build app optimized for debugging.|
+|`lint`|Lint all `.js` files.|
+|`lint:fix`|Lint and fix all `.ts` files.|
+
