@@ -8,6 +8,7 @@ describe("# WebAuth", () => {
     it("should retrieve the token", () => {
         return cleanCollection().then(_res => {
             return login().then(res => {
+                console.log(res.status);
                 res.status.should.equal(200);
                 res.body.token.should.not.be.empty;
             });
