@@ -10,6 +10,7 @@ addons:
     packages:
     - google-chrome-stable
 before_install:
+- rm -rf node_modules
 - npm i -g npm
 - npm install grunt-cli -g
 - export CHROME_BIN=chromium-browser
