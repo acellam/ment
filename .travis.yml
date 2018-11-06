@@ -24,9 +24,6 @@ before_install:
 - npm --version
 after_success:
 - bash <(curl -s https://codecov.io/bash)
-cache:
-  directories:
-  - node_modules
 deploy:
   provider: releases
   api_key: $GITHUB_KEY
