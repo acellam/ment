@@ -1,4 +1,6 @@
 // tslint:disable
+import { expect } from "chai";
+
 import { login, request } from "./common";
 import { cleanCollection } from "../models/user";
 
@@ -8,9 +10,8 @@ describe("# WebAuth", () => {
     it("should retrieve the token", () => {
         return cleanCollection().then(_res => {
             return login().then(res => {
-                console.log(res.status);
-                res.status.should.equal(200);
-                res.body.token.should.not.be.empty;
+                expect(res.status).to.equal(200);
+                expect(res.body.token).not.to.empty
             });
         });
     });
@@ -39,7 +40,7 @@ describe("# WebAuth", () => {
                 firstName: "User one",
                 lastName: "User one last"
             })
-            .expect((res: any) => res.body.message.should.equal("Your token has expired. Please generate a new one"))
+            .expect((res: any) => expect(res.body.message).to.equal("Your token has expired. Please generate a new one"))
             .expect(401);
     });
 });
