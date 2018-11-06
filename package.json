@@ -12,7 +12,7 @@
     "dev:client": "webpack-dev-server --progress --config webpack.config.js",
     "emit": "tsc",
     "pretest": "tsc && npm run lint && npm run build",
-    "test": "npm run test:unit:client && npm run test:unit:server",
+    "test": "npm run test:unit:server",
     "test:unit:client": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\"}' mocha --require ts-node/register 'src/client/**/*.spec.ts'",
     "test:unit:server": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\"}' mocha --require ts-node/register 'src/server/**/*.spec.ts'",
     "test:e2e": "tsc -p ./e2e/tsconfig.json && wdio ./e2e/wdio.conf.js",
