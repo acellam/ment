@@ -116,7 +116,7 @@
     "jsonwebtoken": "^8.3.0",
     "jwt-simple": "^0.5.5",
     "moment": "^2.22.2",
-    "mongodb": "1.4.25",
+    "mongodb": "2.0.0",
     "mongoose": "^5.3.4",
     "mongoose-data-seed": "^1.0.6",
     "npm": "^6.2.0",
