@@ -13,7 +13,7 @@ module.exports = function(grunt) {
     grunt.initConfig({
 
         watch: {
-            updateWidgetFiles: {
+            updateSourceFiles: {
                 files: [ "./src/**/*" ],
                 tasks: [ "webpack:develop" ],
                 options: {
