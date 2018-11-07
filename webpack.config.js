@@ -60,6 +60,7 @@ const clientConfig = {
             }
         ]
     },
+    mode: "development",
     devtool: "source-map",
     plugins: [
         new CopyWebpackPlugin([
@@ -104,6 +105,7 @@ const serverConfig = {
             }
         ]
     },
+    mode: "development",
     devtool: "source-map",
     plugins: [
         new CopyWebpackPlugin([
