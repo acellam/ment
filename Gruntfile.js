@@ -1,5 +1,4 @@
 "use strict";
-const webpack = require("webpack");
 const webpackConfig = require("./webpack.config");
 const merge = require("webpack-merge");
 
