@@ -1,5 +1,5 @@
 var Seeder = require('mongoose-data-seed').Seeder;
-var User = require('dist/tsc/src/server/models/user');
+var User = require('../../../dist/tsc/src/server/models/user');
 
 const data = [
     {

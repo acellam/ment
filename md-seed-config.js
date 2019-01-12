@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var bluebird = require('bluebird');
 var dotenv = require('dotenv');
 
-var User = require("./src/server/db/seeders/users.seeder");
+var User = require("./src/db/seeders/users.seeder");
 
 let dbName;
 

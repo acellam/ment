@@ -1,0 +1,32 @@
+{
+  "description": "Coverage configurations",
+  "nyc": {
+    "include": [
+      "src/**/*.ts"
+    ],
+    "exclude": [
+      "**/node_modules/**",
+      "src/**/*.d.ts"
+    ],
+    "extension": [
+      ".ts"
+    ],
+    "require": [
+      "source-map-support/register",
+      "ts-node/register"
+    ],
+    "reporter": [
+      "text-summary",
+      "html"
+    ],
+    "check-coverage": true,
+    "statements": 90,
+    "functions": 90,
+    "branches": 90,
+    "lines": 90,
+    "produceSourceMap": true,
+    "sourceMap": true,
+    "instrument": true,
+    "all": true
+  }
+}
