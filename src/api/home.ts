@@ -7,7 +7,7 @@ export class Home {
             .get((_req: Request, res: Response) => {
                 // Get all contacts
                 res.status(200).send({
-                    message: `Welcome to Metvn API.`,
+                    message: `Welcome to ment API.`,
                     version: "1.0.0"
                 });
             })

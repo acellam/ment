@@ -11,13 +11,13 @@ dotenv.config();
 
 switch (process.env.NODE_ENV) {
     case "test":
-        dbName = "mtnvn_test";
+        dbName = "ment_test";
         break;
     case "production":
-        dbName = "metvn";
+        dbName = "ment";
         break;
     default:
-        dbName = "metvn_dev";
+        dbName = "ment_dev";
 }
 
 module.exports = {
