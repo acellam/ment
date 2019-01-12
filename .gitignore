@@ -3,3 +3,5 @@ localSettings.js
 node_modules/
 .idea/
 .env
+.nyc_output/
+coverage/

@@ -5,6 +5,10 @@
   "serverVersion": "1.0.0",
   "version": "1.0.0",
   "description": "A backend boilerplate for apps built using expressjs, node, mongodb using typescript",
+  "engines": {
+    "node": "11.5.x",
+    "npm": "6.4.x"
+  },
   "scripts": {
     "start": "npm run watch && dev:server",
     "watch": "nodemon --watch webpack.config.js --watch Gruntfile.js --exec grunt",
