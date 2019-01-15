@@ -4,7 +4,7 @@ import { UserController } from "../controllers/user";
 export class User {
     public userController: UserController = new UserController();
 
-    public routes(app: Application): void {
+    public routes = (app: Application) => {
         app.route(`${process.env.API_BASE}user`)
             /**
              * @api {get} /api/v1/users Retrieve all users

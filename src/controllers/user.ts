@@ -6,7 +6,7 @@ const User = mongoose.model("User", UserSchema);
 
 export class UserController {
 
-    public addNewUser(req: Request, res: Response) {
+    public addNewUser = (req: Request, res: Response) => {
         const newUser = new User(req.body);
 
         newUser.save((err, user) => {
@@ -17,7 +17,7 @@ export class UserController {
         });
     }
 
-    public getUsers(_req: Request, res: Response) {
+    public getUsers = (_req: Request, res: Response) => {
         User.find({}, (err, user) => {
             if (err) {
                 res.send(err);
@@ -26,7 +26,7 @@ export class UserController {
         });
     }
 
-    public getUserWithID(req: Request, res: Response) {
+    public getUserWithID = (req: Request, res: Response) => {
         User.findById(req.params.userId, (err, user) => {
             if (err) {
                 res.send(err);
@@ -35,7 +35,7 @@ export class UserController {
         });
     }
 
-    public updateUser(req: Request, res: Response) {
+    public updateUser = (req: Request, res: Response) => {
         User.findOneAndUpdate({ _id: req.params.userId }, req.body, { new: true }, (err, user) => {
             if (err) {
                 res.send(err);
@@ -44,7 +44,7 @@ export class UserController {
         });
     }
 
-    public deleteUser(req: Request, res: Response) {
+    public deleteUser = (req: Request, res: Response) => {
         // tslint: disable-next-line
         User.remove({ _id: req.params.userId }, (err) => {
             if (err) {

@@ -4,7 +4,7 @@ import { ContactController } from "../controllers/contact";
 export class Contact {
     public contactController: ContactController = new ContactController();
 
-    public routes(app: Application): void {
+    public routes = (app: Application) => {
         app.route(`${process.env.API_BASE}contact`)
             // GET endpoint
             .get(this.contactController.getContacts)

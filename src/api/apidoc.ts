@@ -22,7 +22,7 @@ export class ApiDoc {
         }
     };
 
-    public routes(app: Application): void {
+    public routes = (app: Application) => {
         app.use(`${process.env.API_DOC_BASE}docs/v1`, swaggerUi.serve, swaggerUi.setup(this.swaggerDocument, this.options));
     }
 }

@@ -3,7 +3,7 @@ import * as mongoose from "mongoose";
 import * as dotenv from "dotenv";
 
 export class Database {
-    public start(): void {
+    public start = () => {
         (mongoose as any).Promise = bluebird;
         let dbName;
 

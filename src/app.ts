@@ -22,7 +22,7 @@ class App {
         database.start();
     }
 
-    private config(): void {
+    private config = () => {
         // support application/json type post data
         this.app.use(bodyParser.json());
         // support application/x-www-form-urlencoded post data
@@ -33,7 +33,7 @@ class App {
         this.secureApi();
     }
 
-    private secureApi() {
+    private secureApi = () => {
         this.app.use(this.webAuthController.initialize());
         this.app.all(`${process.env.API_BASE}*`, (req, res, next) => {
             if (req.path.includes(`${process.env.API_BASE}login`)) {

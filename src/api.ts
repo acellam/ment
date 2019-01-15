@@ -7,7 +7,7 @@ import user from "./api/user";
 import apidoc from "./api/apidoc";
 
 export class Api {
-    public routes(app: Application): void {
+    public routes = (app: Application) => {
         // Add API routes
         home.routes(app);
         contact.routes(app);

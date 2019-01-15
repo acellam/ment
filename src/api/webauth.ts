@@ -4,7 +4,7 @@ import { WebAuthController } from "../controllers/webauth";
 export class WebAuth {
     public webAuthController: WebAuthController = new WebAuthController();
 
-    public routes(app: Application): void {
+    public routes = (app: Application) => {
         /**
          * @api {post} /api/v1/login Generate a token
          * @apiVersion 1.0.0
