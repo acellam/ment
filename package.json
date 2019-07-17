@@ -105,7 +105,7 @@
     "moment": "^2.23.0",
     "mongodb": "^3.1.10",
     "mongoose": "^5.4.3",
-    "mongoose-data-seed": "^1.0.7",
+    "mongoose-data-seed": "^2.0.0",
     "npm": "^6.5.0",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
