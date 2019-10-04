@@ -24,7 +24,9 @@
     "lint:fix": "npm run lint -- --fix",
     "build": "grunt developProd",
     "build:release": "grunt release",
-    "build:test": "grunt test"
+    "build:test": "grunt test",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "pre-commit": [
     "emit",
@@ -111,6 +113,8 @@
     "passport-jwt": "^4.0.0",
     "request": "^2.88.0",
     "requirejs": "^2.3.6",
-    "swagger-ui-express": "^4.0.2"
-  }
+    "swagger-ui-express": "^4.0.2",
+    "snyk": "^1.230.5"
+  },
+  "snyk": true
 }
