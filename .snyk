@@ -1,0 +1,44 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.14.1
+ignore: {}
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  SNYK-JS-LODASH-567746:
+    - express-validator > lodash:
+        patched: '2020-05-01T08:39:32.700Z'
+    - mongoose-data-seed > lodash:
+        patched: '2020-05-01T08:39:32.700Z'
+    - mongoose > async > lodash:
+        patched: '2020-05-01T08:39:32.700Z'
+    - mongoose-data-seed > babel-register > lodash:
+        patched: '2020-05-01T08:39:32.700Z'
+    - mongoose-data-seed > inquirer > lodash:
+        patched: '2020-05-01T08:39:32.700Z'
+    - mongoose-data-seed > babel-register > babel-core > lodash:
+        patched: '2020-05-01T08:39:32.700Z'
+    - mongoose-data-seed > babel-register > babel-core > babel-types > lodash:
+        patched: '2020-05-01T08:39:32.700Z'
+    - mongoose-data-seed > babel-register > babel-core > babel-generator > lodash:
+        patched: '2020-05-01T08:39:32.700Z'
+    - mongoose-data-seed > babel-register > babel-core > babel-traverse > lodash:
+        patched: '2020-05-01T08:39:32.700Z'
+    - mongoose-data-seed > babel-register > babel-core > babel-template > lodash:
+        patched: '2020-05-01T08:39:32.700Z'
+    - mongoose-data-seed > babel-register > babel-core > babel-generator > babel-types > lodash:
+        patched: '2020-05-01T08:39:32.700Z'
+    - mongoose-data-seed > babel-register > babel-core > babel-traverse > babel-types > lodash:
+        patched: '2020-05-01T08:39:32.700Z'
+    - mongoose-data-seed > babel-register > babel-core > babel-template > babel-types > lodash:
+        patched: '2020-05-01T08:39:32.700Z'
+    - mongoose-data-seed > babel-register > babel-core > babel-template > babel-traverse > lodash:
+        patched: '2020-05-01T08:39:32.700Z'
+    - mongoose-data-seed > babel-register > babel-core > babel-helpers > babel-template > lodash:
+        patched: '2020-05-01T08:39:32.700Z'
+    - mongoose-data-seed > babel-register > babel-core > babel-template > babel-traverse > babel-types > lodash:
+        patched: '2020-05-01T08:39:32.700Z'
+    - mongoose-data-seed > babel-register > babel-core > babel-helpers > babel-template > babel-types > lodash:
+        patched: '2020-05-01T08:39:32.700Z'
+    - mongoose-data-seed > babel-register > babel-core > babel-helpers > babel-template > babel-traverse > lodash:
+        patched: '2020-05-01T08:39:32.700Z'
+    - mongoose-data-seed > babel-register > babel-core > babel-helpers > babel-template > babel-traverse > babel-types > lodash:
+        patched: '2020-05-01T08:39:32.700Z'
