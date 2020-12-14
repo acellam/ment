@@ -104,7 +104,7 @@
     "jwt-simple": "^0.5.5",
     "moment": "^2.23.0",
     "mongodb": "^3.1.10",
-    "mongoose": "^5.4.3",
+    "mongoose": "^5.11.7",
     "mongoose-data-seed": "^1.0.7",
     "npm": "^6.5.0",
     "passport": "^0.4.0",
