@@ -66,7 +66,7 @@
     "istanbul-instrumenter-loader": "^3.0.0",
     "mocha": "^5.2.0",
     "nodemon": "^1.18.9",
-    "npm-check": "^5.9.0",
+    "npm-check": "^5.9.2",
     "nyc": "^13.1.0",
     "pre-commit": "^1.2.2",
     "remap-istanbul": "^0.13.0",
