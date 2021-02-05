@@ -5,7 +5,7 @@
 [![Known Vulnerabilities](https://snyk.io/test/github/mistaguy/ment.svg)](https://snyk.io/test/github/mistaguy/ment)
 ![Node 11](https://img.shields.io/badge/node-11.5.x-green.svg)
 ![Npm 6](https://img.shields.io/badge/npm-6.4.x-green.svg)
-![Webpack 4](https://img.shields.io/badge/webpack-4.25.1-green.svg)
+![Webpack 5](https://img.shields.io/badge/webpack-5.20.2-green.svg)
 [![codecov](https://codecov.io/gh/mistaguy/ment/branch/master/graph/badge.svg)](https://codecov.io/gh/mistaguy/ment)
 [![Coverage Status](https://coveralls.io/repos/github/mistaguy/ment/badge.svg?branch=master)](https://coveralls.io/github/mistaguy/ment?branch=master)
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat-square)](https://github.com/mistaguy/ment/issues)

@@ -33,10 +33,12 @@ module.exports = {
     mode: "development",
     devtool: "source-map",
     plugins: [
-        new CopyWebpackPlugin([
-            { from: ".env"},
-            { from: "src/**/*.js" }
-        ], {
+        new CopyWebpackPlugin({
+            patterns: [
+                { from: ".env"},
+                { from: "src/**/*.js" }
+            ]
+        }, {
             copyUnmodified: true
         }),
         new webpack.LoaderOptionsPlugin({

@@ -1,6 +1,7 @@
 // tslint:disable
 import * as bcrypt from "bcryptjs";
 import { Document, model, Schema } from "mongoose";
+import { NextFunction } from "express";
 
 export interface IUserDocument extends Document {
     name: string;
@@ -22,7 +23,7 @@ export const UserSchema = new Schema({
     }
 }, { timestamps: { createdAt: "created_at", updatedAt: "updated_at" } });
 
-UserSchema.pre("save", function(next) {
+UserSchema.pre("save", (next: NextFunction) => {
     const iUserDocument: any = this;
 
     bcrypt.hash(iUserDocument.password, 10, (_err: any, hash) => {
@@ -31,7 +32,7 @@ UserSchema.pre("save", function(next) {
     });
 });
 
-UserSchema.pre("update", function(next) {
+UserSchema.pre("update", (next: NextFunction) => {
     const iUserDocument: any = this;
 
     bcrypt.hash(iUserDocument.password, 10, (_err: any, hash) => {
@@ -40,16 +41,16 @@ UserSchema.pre("update", function(next) {
     });
 });
 
-UserSchema.methods.comparePassword = function(candidatePassword: string): Promise<boolean>{
-    const password = this.password;
+UserSchema.methods = {
+    comparePassword: (candidatePassword, cb) => {
+        const userObj: IUserDocument = this!;
 
-    return new Promise((resolve, reject) => {
-        bcrypt.compare(candidatePassword, password, (err, success) => {
-            if (err) return reject(err);
-            return resolve(success);
+        bcrypt.compare(candidatePassword, userObj.password, (err, isMatch) => {
+            if (err) return cb(err);
+            cb(null, isMatch);
         });
-    });
-};
+    }
+}
 
 export const User = model<IUserDocument>("User", UserSchema);
 export const cleanCollection = () => User.remove({}).exec();

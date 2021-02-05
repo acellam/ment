@@ -1,6 +1,8 @@
 // tslint:disable
 import { Request, Response } from "express";
+import { check, validationResult } from "express-validator";
 import * as jwt from "jwt-simple";
+import * as mongoose from "mongoose";
 import * as passport from "passport";
 import * as moment from "moment";
 import { ExtractJwt, Strategy } from "passport-jwt";
@@ -18,12 +20,12 @@ export class WebAuthController {
 
     public authenticate = (callback: (err: any, user: any, info: any) => void) => passport.authenticate("jwt", { session: false, failWithError: true }, callback);
 
-    public login = async (req: Request, res: Response) => {
+    public login = async (req: any, res: Response) => {
         try {
-            req.checkBody("username", "Invalid username").notEmpty();
-            req.checkBody("password", "Invalid password").notEmpty();
+            check('username', 'Invalid required').notEmpty();
+            check('password', 'Invalid required').notEmpty();
 
-            const errors = req.validationErrors();
+            const errors = validationResult(req)
 
             if (errors) throw errors;
 
@@ -64,7 +66,7 @@ export class WebAuthController {
         };
 
         return new Strategy(params, (_req: Request, payload: any, done: any) => {
-            User.findOne({ username: payload.username }, (err, user) => {
+            User.findOne({ username: payload.username }, (err: mongoose.CallbackError, user: IUserDocument) => {
                 /* istanbul ignore next: passport response */
                 if (err) {
                     return done(err);

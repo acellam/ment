@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import * as mongoose from "mongoose";
-import { ContactSchema } from "../models/contact";
+import { ContactSchema, IContactDocument } from "../models/contact";
 
 const Contact = mongoose.model("Contact", ContactSchema);
 
@@ -27,7 +27,7 @@ export class ContactController {
     }
 
     public getContactWithID = (req: Request, res: Response) => {
-        Contact.findById(req.params.contactId, (err, contact) => {
+        Contact.findById(req.params.contactId, (err: mongoose.CallbackError, contact: IContactDocument) => {
             if (err) {
                 res.send(err);
             }

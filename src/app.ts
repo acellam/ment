@@ -1,7 +1,6 @@
 // tslint:disable
 import * as express from "express";
 import * as bodyParser from "body-parser";
-import * as expressValidator from "express-validator";
 import database from "./config/database";
 import { WebAuthController } from "./controllers/webauth";
 
@@ -27,7 +26,6 @@ class App {
         this.app.use(bodyParser.json());
         // support application/x-www-form-urlencoded post data
         this.app.use(bodyParser.urlencoded({ extended: false }));
-        this.app.use(expressValidator());
         // so we can get the client's IP address
         this.app.enable("trust proxy");
         this.secureApi();

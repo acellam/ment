@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import * as mongoose from "mongoose";
-import { UserSchema } from "../models/user";
+import { IUserDocument, UserSchema } from "../models/user";
 
 const User = mongoose.model("User", UserSchema);
 
@@ -27,7 +27,7 @@ export class UserController {
     }
 
     public getUserWithID = (req: Request, res: Response) => {
-        User.findById(req.params.userId, (err, user) => {
+        User.findById(req.params.userId, (err: mongoose.CallbackError, user: IUserDocument) => {
             if (err) {
                 res.send(err);
             }
