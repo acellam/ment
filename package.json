@@ -114,7 +114,7 @@
     "request": "^2.88.0",
     "requirejs": "^2.3.6",
     "swagger-ui-express": "^4.0.2",
-    "snyk": "^1.230.5"
+    "snyk": "^1.446.0"
   },
   "snyk": true
 }
