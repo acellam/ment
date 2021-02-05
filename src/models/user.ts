@@ -24,21 +24,11 @@ export const UserSchema = new Schema({
 }, { timestamps: { createdAt: "created_at", updatedAt: "updated_at" } });
 
 UserSchema.pre("save", (next: NextFunction) => {
-    const iUserDocument: any = this;
-
-    bcrypt.hash(iUserDocument.password, 10, (_err: any, hash) => {
-        iUserDocument.password = hash;
-        next();
-    });
+    updatePassword(this, next);
 });
 
 UserSchema.pre("update", (next: NextFunction) => {
-    const iUserDocument: any = this;
-
-    bcrypt.hash(iUserDocument.password, 10, (_err: any, hash) => {
-        iUserDocument.password = hash;
-        next();
-    });
+    updatePassword(this, next);
 });
 
 UserSchema.methods = {
@@ -50,6 +40,15 @@ UserSchema.methods = {
             cb(null, isMatch);
         });
     }
+}
+
+function updatePassword(iUserDocument: IUserDocument | any, next: NextFunction) {
+    const userObj: IUserDocument = iUserDocument!;
+
+    bcrypt.hash(userObj.password, 10, (_err: any, hash) => {
+        userObj.password = hash;
+        next();
+    });
 }
 
 export const User = model<IUserDocument>("User", UserSchema);
