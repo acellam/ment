@@ -10,7 +10,7 @@
     "npm": "6.4.x"
   },
   "scripts": {
-    "start": "npm run watch && dev:server",
+    "start": "npm run dev:server",
     "watch": "nodemon --watch webpack.config.js --watch Gruntfile.js --exec grunt",
     "dev:server": "nodemon ./dist/server.js",
     "prod:server:start": "pm2 start ./dist/server.js",

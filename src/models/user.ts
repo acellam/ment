@@ -52,6 +52,6 @@ function updatePassword(iUserDocument: IUserDocument | any, next: NextFunction) 
 }
 
 export const User = model<IUserDocument>("User", UserSchema);
-export const cleanCollection = () => User.remove({}).exec();
+export const cleanCollection = () => User.deleteOne({}).exec();
 
 export default User;

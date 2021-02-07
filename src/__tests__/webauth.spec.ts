@@ -2,17 +2,15 @@
 import { expect } from "chai";
 
 import { login, request } from "./common";
-import { cleanCollection } from "../models/user";
 
 describe("# WebAuth", () => {
     const endpoint = process.env.API_BASE + "login";
 
     it("should retrieve the token", () => {
-        return cleanCollection().then(_res => {
-            return login().then(res => {
-                expect(res.status).to.equal(200);
-                expect(res.body.token).not.to.empty
-            });
+        return login().then(res => {
+            console.info(res.body);
+            expect(res.status).to.equal(200);
+            expect(res.body.token).not.to.empty
         });
     });
 

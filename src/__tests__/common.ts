@@ -16,6 +16,7 @@ const createUser = async (): Promise<void> => {
 
 const getUser = async (): Promise<IUserDocument> => {
     const users = await User.find({});
+
     if (users.length === 0) {
         await createUser();
         return getUser();
@@ -26,7 +27,8 @@ const getUser = async (): Promise<IUserDocument> => {
 
 export const login = async (): Promise<any> => {
     const user = await getUser();
-    return request.post(process.env.API_BASE + "login")
+
+    return request.post(`${process.env.APP_URL}${process.env.API_BASE}login`)
         .send({ username: user.username, password: testUser.password })
         .expect(200);
 };
