@@ -10,7 +10,7 @@
   "require": [ "ts-node/register", "source-map-support/register" ],
   "slow": 75,
   "spec": "src/**/*.spec.ts",
-  "timeout": 2000,
+  "timeout": 10000,
   "ui": "bdd",
   "watch-files": [ "lib/**/*.js", "test/**/*.js" ]
 }
