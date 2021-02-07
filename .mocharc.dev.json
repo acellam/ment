@@ -1,0 +1,16 @@
+{
+  "bail": true,
+  "diff": true,
+  "exit": false,
+  "extension": [ "ts" ],
+  "full-trace": true,
+  "package": "./package.json",
+  "recursive": true,
+  "reporter": "spec",
+  "require": [ "ts-node/register", "source-map-support/register" ],
+  "slow": 75,
+  "spec": "src/**/*.spec.ts",
+  "timeout": 2000,
+  "ui": "bdd",
+  "watch-files": [ "lib/**/*.js", "test/**/*.js" ]
+}
