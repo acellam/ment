@@ -1,13 +1,11 @@
 import * as bluebird from "bluebird";
 import * as mongoose from "mongoose";
-import * as dotenv from "dotenv";
+import { logger } from "./winston";
 
 export class Database {
     public start = () => {
         (mongoose as any).Promise = bluebird;
         let dbName;
-
-        dotenv.config();
 
         switch (process.env.NODE_ENV) {
             case "test":
@@ -18,6 +16,17 @@ export class Database {
                 break;
             default:
                 dbName = "ment_dev";
+                mongoose.set("debug", (coll: any, method: any, query: any, doc: any, opts: any) => {
+                    logger.info({
+                        dbQuery: {
+                            coll,
+                            method,
+                            query,
+                            doc,
+                            options: opts
+                        }
+                    });
+                });
         }
 
         const dbAddress = process.env.DB_HOST || "127.0.0.1";
@@ -37,10 +46,12 @@ export class Database {
         mongoose.set("useCreateIndex", true);
         mongoose
             .connect(`mongodb://${dbAddress}:${dbPort}/${dbName}`, options)
+            .then(() => {
+                logger.log("info", `Connected to the database`);
+            })
             .catch(err => {
             if (err.message.indexOf("ECONNREFUSED") !== -1) {
-                // tslint:disable-next-line
-                console.error("Error: The server was not able to reach MongoDB. Maybe it's not running?");
+                logger.log("Error", `The server was not able to reach MongoDB. Maybe it's not running? :( ", ${err}`);
                 process.exit(1);
             } else {
                 throw err;
