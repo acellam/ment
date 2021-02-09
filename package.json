@@ -85,6 +85,7 @@
     "webpack-node-externals": "^2.5.2"
   },
   "dependencies": {
+    "@types/app-root-path": "^1.2.4",
     "@types/bcryptjs": "^2.4.2",
     "@types/bluebird": "^3.5.33",
     "@types/body-parser": "^1.19.0",
@@ -92,10 +93,13 @@
     "@types/lodash": "^4.14.168",
     "@types/mongodb": "^3.6.6",
     "@types/mongoose": "^5.10.3",
+    "@types/morgan": "^1.9.2",
     "@types/passport": "^1.0.5",
     "@types/passport-jwt": "^3.0.4",
     "@types/supertest": "^2.0.10",
     "@types/swagger-ui-express": "^4.1.2",
+    "@types/winston": "^2.4.4",
+    "app-root-path": "^3.0.0",
     "bcryptjs": "^2.4.3",
     "bluebird": "^3.7.2",
     "body-parser": "^1.19.0",
@@ -111,13 +115,15 @@
     "mongodb": "^3.6.4",
     "mongoose": "^5.7.5",
     "mongoose-data-seed": "^2.0.0",
+    "morgan": "^1.10.0",
     "npm": "^7.5.2",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
     "request": "^2.88.2",
     "requirejs": "^2.3.6",
     "snyk": "^1.230.5",
-    "swagger-ui-express": "^4.1.6"
+    "swagger-ui-express": "^4.1.6",
+    "winston": "^3.3.3"
   },
   "snyk": true
 }
