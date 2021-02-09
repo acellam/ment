@@ -3,9 +3,7 @@ import * as supertest from "supertest";
 import { IUserDocument, User } from "../models/user";
 import app from "../app";
 
-process.env.NODE_ENV = "test";
-
-export const request = supertest(app);
+export const request = supertest(app.server);
 
 const testUser = { username: "testuser", password: "mytestpass" };
 
@@ -28,7 +26,7 @@ const getUser = async (): Promise<IUserDocument> => {
 export const login = async (): Promise<any> => {
     const user = await getUser();
 
-    return request.post(`${process.env.APP_URL}${process.env.API_BASE}login`)
+    return request.post(`${process.env.API_BASE}login`)
         .send({ username: user.username, password: testUser.password })
         .expect(200);
 };
