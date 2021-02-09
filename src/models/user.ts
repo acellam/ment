@@ -23,32 +23,34 @@ export const UserSchema = new Schema({
     }
 }, { timestamps: { createdAt: "created_at", updatedAt: "updated_at" } });
 
-UserSchema.pre("save", (next: NextFunction) => {
+UserSchema.pre("save", function(next) {
     updatePassword(this, next);
 });
 
-UserSchema.pre("update", (next: NextFunction) => {
+UserSchema.pre("update", function(next) {
     updatePassword(this, next);
 });
 
-UserSchema.methods = {
-    comparePassword: (candidatePassword, cb) => {
-        const userObj: IUserDocument = this!;
+UserSchema.methods.comparePassword = function(candidatePassword: string): Promise<boolean> {
+    const iUserDocument: IUserDocument | any = this!;
 
-        bcrypt.compare(candidatePassword, userObj.password, (err, isMatch) => {
-            if (err) return cb(err);
-            cb(null, isMatch);
+    return new Promise((resolve, reject) => {
+        bcrypt.compare(candidatePassword, iUserDocument.password, (err, success) => {
+            if (err) return reject(err);
+            return resolve(success);
         });
-    }
-}
-
-function updatePassword(iUserDocument: IUserDocument | any, next: NextFunction) {
-    const userObj: IUserDocument = iUserDocument!;
-
-    bcrypt.hash(userObj.password, 10, (_err: any, hash) => {
-        userObj.password = hash;
-        next();
     });
+};
+
+function updatePassword(iUserDocument: IUserDocument | any, next: NextFunction | any) {
+    if (iUserDocument.password) {
+        bcrypt.hash(iUserDocument.password, 10, (_err: any, hash) => {
+            iUserDocument.password = hash;
+            next();
+        });
+    } else {
+        next();
+    }
 }
 
 export const User = model<IUserDocument>("User", UserSchema);

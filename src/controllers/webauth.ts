@@ -1,18 +1,23 @@
 // tslint:disable
 import { Request, Response } from "express";
-import { check, validationResult } from "express-validator";
+import { body, validationResult } from "express-validator";
 import * as jwt from "jwt-simple";
 import * as mongoose from "mongoose";
 import * as passport from "passport";
 import * as moment from "moment";
 import { ExtractJwt, Strategy } from "passport-jwt";
+import { App } from "../app";
 import { IUserDocument, User } from "../models/user";
-import * as dotenv from "dotenv";
 
 export class WebAuthController {
 
+    public app: App;
+
+    constructor(app: App) {
+        this.app = app;
+    }
+
     public initialize = () => {
-        dotenv.config();
         passport.use("jwt", this.getStrategy());
 
         return passport.initialize();
@@ -20,29 +25,30 @@ export class WebAuthController {
 
     public authenticate = (callback: (err: any, user: any, info: any) => void) => passport.authenticate("jwt", { session: false, failWithError: true }, callback);
 
-    public login = async (req: any, res: Response) => {
+    public login = async (req: Request, res: Response) => {
         try {
-            check('username', 'Invalid required').notEmpty();
-            check('password', 'Invalid required').notEmpty();
+            body('username', 'Username should not be empty').notEmpty();
+            body('password', 'Password should not be empty').notEmpty();
 
             const errors = validationResult(req)
 
-            if (errors) throw errors;
+            if (!errors.isEmpty()) {
+                return res.status(422).json({ errors: errors.array() });
+            }
 
             const user = await User.findOne({ username: req.body.username }).exec();
 
-            if (user === null) throw new Error("User not found");
+            if (user === null) return res.status(400).json({ message: "Invalid username, please sign up" });
 
             const success = await user.comparePassword(req.body.password);
 
-            if (success === false) throw new Error("");
+            if (success === false) return res.status(400).json({ message: "Wrong login details" });
 
             res.status(200).json(this.genToken(user));
-
         } catch (err) {
             res.status(401).json({ message: "Invalid credentials", errors: err });
         }
-    };
+    }
 
     private genToken = (user: IUserDocument): Object => {
         const expires = moment().utc().add({ days: 7 }).unix();

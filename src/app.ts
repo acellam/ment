@@ -1,71 +1,45 @@
-// tslint:disable
 import * as express from "express";
 import * as bodyParser from "body-parser";
-import database from "./config/database";
-import { WebAuthController } from "./controllers/webauth";
+import * as dotenv from "dotenv";
+import * as morgan from "morgan";
+import * as http from "http";
 
+import database from "./config/database";
+import winston, { logger } from "./config/winston";
 import { Api } from "./api";
 
-class App {
-    public app: express.Application;
+export class App {
+    public express!: express.Application;
     public api: Api = new Api();
-    public webAuthController: WebAuthController = new WebAuthController();
+    public session!: express.RequestHandler;
+    public server!: http.Server;
 
     constructor() {
-        this.app = express();
-
-        this.config();
-
-        this.api.routes(this.app);
-
-        database.start();
+        try {
+            // tslint:disable-next-line
+            // if (process.env.NODE_ENV === 'development') console.log = () => null; // allow console
+            this.express = express();
+            this.config();
+            database.start();
+            this.api.routes(this);
+        } catch (error) {
+            logger.log("error", `App: Some weirdo error happened :( ", ${error}`);
+        }
     }
 
-    private config = () => {
+    private config(): void {
+        // make sure that the environment is set
+        dotenv.config();
         // support application/json type post data
-        this.app.use(bodyParser.json());
+        this.express.use(bodyParser.json());
         // support application/x-www-form-urlencoded post data
-        this.app.use(bodyParser.urlencoded({ extended: false }));
+        this.express.use(bodyParser.urlencoded({ extended: false }));
         // so we can get the client's IP address
-        this.app.enable("trust proxy");
-        this.secureApi();
+        this.express.enable("trust proxy");
+        // set up logging
+        this.express.use(morgan("combined", { stream: winston.stream } as any));
+        this.server = http.createServer(this.express);
     }
-
-    private secureApi = () => {
-        this.app.use(this.webAuthController.initialize());
-        this.app.all(`${process.env.API_BASE}*`, (req, res, next) => {
-            if (req.path.includes(`${process.env.API_BASE}login`)) {
-                return next();
-            }
-            //If not production, allow creating of user
-            if (!this.isProductionEnvironment && req.path.includes(`${process.env.API_BASE}user`)) {
-                return next();
-            }
-
-            return this.webAuthController.authenticate((err: any, user: any, info: any) => {
-                if (err) {
-                    return next(err);
-                }
-
-                if (!user) {
-                    if (info.name === "TokenExpiredError") {
-                        return res.status(401).json({message: "Your token has expired. Please generate a new one"});
-                    } else {
-                        return res.status(401).json({message: info.message});
-                    }
-                }
-
-                this.app.set("user", user);
-
-                return next();
-            })(req, res, next);
-        });
-    }
-
-    private isProductionEnvironment = () =>{
-        return process.env.NODE_ENV === "development" || process.env.NODE_ENV === "test";
-    }
-
 }
 
-export default new App().app;
+export default new App();
