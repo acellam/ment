@@ -17,7 +17,7 @@
     "prod:server:stop": "pm2 stop ./dist/server.js",
     "emit": "tsc",
     "pretest": "npm run lint && npm run build:test && tsc",
-    "test": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\"}' mocha --config .mocharc.json",
+    "test": "npm run test:unit && TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\"}' mocha --config .mocharc.json",
     "test:dev": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\"}' mocha --config .mocharc.dev.json",
     "test:unit": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\"}' nyc -r lcov -e .ts -x \"*.spec.ts\" mocha --config .mocharc.json -r ts-node/register src/**/*.spec.ts && nyc report",
     "coverage": "nyc npm run test",
