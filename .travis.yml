@@ -24,5 +24,5 @@ cache:
         - "node_modules"
     yarn: true
 after_success:
-- bash < npm run test:unit
+- bash < npm run coverage
 - bash <(curl -s https://codecov.io/bash) -f coverage/coverage-final.json
