@@ -1,56 +1,30 @@
 import { Request, Response } from "express";
 import * as mongoose from "mongoose";
-import { ContactSchema, IContactDocument } from "../models/contact";
+import { ContactSchema } from "../models/contact";
+import { BaseController } from "./base";
 
 const Contact = mongoose.model("Contact", ContactSchema);
 
-export class ContactController {
+export class ContactController extends BaseController {
 
     public addNewContact = (req: Request, res: Response) => {
         const newContact = new Contact(req.body);
-
-        newContact.save((err, contact) => {
-            if (err) {
-                res.send(err);
-            }
-            res.json(contact);
-        });
+        this.createRecord(newContact, res)
     }
 
     public getContacts = (_req: Request, res: Response) => {
-        Contact.find({}, (err, contact) => {
-            if (err) {
-                res.send(err);
-            }
-            res.json(contact);
-        });
+        this.getRecords(Contact, res);
     }
 
     public getContactWithID = (req: Request, res: Response) => {
-        Contact.findById(req.params.contactId, (err: mongoose.CallbackError, contact: IContactDocument) => {
-            if (err) {
-                res.send(err);
-            }
-            res.json(contact);
-        });
+        this.getRecordWithID(Contact, req, res);
     }
 
     public updateContact = (req: Request, res: Response) => {
-        Contact.findOneAndUpdate({ _id: req.params.contactId }, req.body, { new: true }, (err, contact) => {
-            if (err) {
-                res.send(err);
-            }
-            res.json(contact);
-        });
+        this.updateRecord(Contact, req, res);
     }
 
     public deleteContact = (req: Request, res: Response) => {
-        // tslint: disable-next-line
-        Contact.remove({ _id: req.params.contactId }, (err) => {
-            if (err) {
-                res.send(err);
-            }
-            res.json({ message: "Successfully deleted contact!" });
-        });
+        this.deleteRecord(Contact, req, res);
     }
 }

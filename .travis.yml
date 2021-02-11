@@ -24,6 +24,5 @@ cache:
         - "node_modules"
     yarn: true
 after_success:
-- bash <npm run coverage
+- npm run upload_coverage
 - bash <(curl -s https://codecov.io/bash) -t f04a151e-c33b-43f1-8aec-e0865a485229  -f coverage/coverage-final.json
-- bash <cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js

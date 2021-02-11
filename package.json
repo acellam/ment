@@ -20,7 +20,7 @@
     "test": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\"}' mocha --config .mocharc.json",
     "test:dev": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\"}' mocha --config .mocharc.dev.json",
     "test:unit": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\"}' nyc -r lcov -e .ts -x \"*.spec.ts\" mocha --config .mocharc.json -r ts-node/register src/**/*.spec.ts && nyc report",
-    "coverage": "nyc --reporter=json npm run test",
+    "upload_coverage": "nyc report — reporter=text-lcov | coveralls",
     "lint": "tslint -c tslint.json '**/*.ts' --exclude '**/node_modules/**'",
     "lint:fix": "npm run lint -- --fix",
     "build": "grunt developProd",

@@ -1,56 +1,30 @@
 import { Request, Response } from "express";
 import * as mongoose from "mongoose";
-import { IUserDocument, UserSchema } from "../models/user";
+import { UserSchema } from "../models/user";
+import { BaseController } from "./base";
 
 const User = mongoose.model("User", UserSchema);
 
-export class UserController {
+export class UserController extends BaseController {
 
     public addNewUser = (req: Request, res: Response) => {
         const newUser = new User(req.body);
-
-        newUser.save((err, user) => {
-            if (err) {
-                res.send(err);
-            }
-            res.json(user);
-        });
+        this.createRecord(newUser, res)
     }
 
     public getUsers = (_req: Request, res: Response) => {
-        User.find({}, (err, user) => {
-            if (err) {
-                res.send(err);
-            }
-            res.json(user);
-        });
+        this.getRecords(User, res);
     }
 
     public getUserWithID = (req: Request, res: Response) => {
-        User.findById(req.params.userId, (err: mongoose.CallbackError, user: IUserDocument) => {
-            if (err) {
-                res.send(err);
-            }
-            res.json(user);
-        });
+        this.getRecordWithID(User, req, res);
     }
 
     public updateUser = (req: Request, res: Response) => {
-        User.findOneAndUpdate({ _id: req.params.userId }, req.body, { new: true }, (err, user) => {
-            if (err) {
-                res.send(err);
-            }
-            res.json(user);
-        });
+        this.updateRecord(User, req, res);
     }
 
     public deleteUser = (req: Request, res: Response) => {
-        // tslint: disable-next-line
-        User.remove({ _id: req.params.userId }, (err) => {
-            if (err) {
-                res.send(err);
-            }
-            res.json({ message: "Successfully deleted user!" });
-        });
+        this.deleteRecord(User, req, res);
     }
 }
