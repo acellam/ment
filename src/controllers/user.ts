@@ -9,7 +9,7 @@ export class UserController extends BaseController {
 
     public addNewUser = (req: Request, res: Response) => {
         const newUser = new User(req.body);
-        this.createRecord(newUser, res)
+        this.createRecord(newUser, res);
     }
 
     public getUsers = (_req: Request, res: Response) => {

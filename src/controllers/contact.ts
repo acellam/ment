@@ -9,7 +9,7 @@ export class ContactController extends BaseController {
 
     public addNewContact = (req: Request, res: Response) => {
         const newContact = new Contact(req.body);
-        this.createRecord(newContact, res)
+        this.createRecord(newContact, res);
     }
 
     public getContacts = (_req: Request, res: Response) => {
