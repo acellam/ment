@@ -8,6 +8,7 @@ import user from "./api/user";
 import apidoc from "./api/apidoc";
 import { App } from "./app";
 import { WebAuthController } from "./controllers/webauth";
+import { NextFunction } from "express-serve-static-core";
 
 export class Api {
     public webAuthController!: WebAuthController;
@@ -54,32 +55,35 @@ export class Api {
                 return next();
             }
 
-            return this.webAuthController.authenticate((err: any, userDetail: any, info: any) => {
-                if (err) {
-                    return next(err);
-                }
-
-                if (!userDetail) {
-                    if (info.name === "TokenExpiredError") {
-                        return res
-                            .status(401)
-                            .json({ message: "Your token has expired. Please generate a new one" });
-                    } else {
-                        return res
-                            .status(401)
-                            .json({ message: info.message });
-                    }
-                }
-
-                // set user on express
-                app.set("user", userDetail);
-                // set user on session
-                if (req && req.session) {
-                    req.session.user = userDetail;
-                }
-
-                return next();
-            })(req, res, next);
+            return this.authenticateApi(app, req, res, next);
         });
+    }
+
+    private authenticateApi(app: Application, req: Request | any, res: Response, next: NextFunction) {
+        return this.webAuthController.authenticate((err: any, userDetail: any, info: any) => {
+            if (err) {
+                return next(err);
+            }
+
+            if (!userDetail) {
+                if (info.name === "TokenExpiredError") {
+                    return res
+                        .status(401)
+                        .json({ message: "Your token has expired. Please generate a new one" });
+                } else {
+                    return res
+                        .status(401)
+                        .json({ message: info.message });
+                }
+            }
+            // set user on express
+            app.set("user", userDetail);
+            // set user on session
+            if (req && req.session) {
+                req.session.user = userDetail;
+            }
+
+            return next();
+        })(req, res, next);
     }
 }
