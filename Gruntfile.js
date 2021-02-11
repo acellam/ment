@@ -39,12 +39,14 @@ module.exports = function (grunt) {
     grunt.registerTask("build", ["clean build"]);
 };
 
-const webpackConfigTest = merge(webpackConfig, {
+const baseWebpackConfigTest = merge(webpackConfig, {
     devtool: false,
-    mode: "development",
     optimization: {
         minimize: true
-    },
+    }
+});
+
+const webpackConfigTest = merge(baseWebpackConfigTest, {
     module: {
         rules: [
             {
@@ -60,12 +62,8 @@ const webpackConfigTest = merge(webpackConfig, {
     }
 });
 
-const webpackConfigDevProd= merge(webpackConfig, {
-    devtool: false,
+const webpackConfigDevProd= merge(baseWebpackConfigTest, {
     mode: "development",
-    optimization: {
-        minimize: true
-    },
     module: {
         rules: [
             {
@@ -89,12 +87,8 @@ const webpackConfigDevProd= merge(webpackConfig, {
         ]
     }
 });
-const webpackConfigRelease = merge(webpackConfig, {
-    devtool: false,
+const webpackConfigRelease = merge(baseWebpackConfigTest, {
     mode: "production",
-    optimization: {
-        minimize: true
-    },
     module: {
         rules: [
             {
