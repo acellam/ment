@@ -25,4 +25,4 @@ cache:
     yarn: true
 after_success:
 - npm run upload_coverage
-- bash <(curl -s https://codecov.io/bash) -t f04a151e-c33b-43f1-8aec-e0865a485229  -f coverage/coverage-final.json
+- bash <(curl -s https://codecov.io/bash) -f coverage/coverage-final.json
