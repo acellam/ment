@@ -8,8 +8,7 @@ const Contact = mongoose.model("Contact", ContactSchema);
 export class ContactController extends BaseController {
 
     public addNewContact = (req: Request, res: Response) => {
-        const newContact = new Contact(req.body);
-        this.createRecord(newContact, res);
+        this.createRecord(new Contact(req.body), res);
     }
 
     public getContacts = (_req: Request, res: Response) => {

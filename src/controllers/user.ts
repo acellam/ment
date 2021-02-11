@@ -8,8 +8,7 @@ const User = mongoose.model("User", UserSchema);
 export class UserController extends BaseController {
 
     public addNewUser = (req: Request, res: Response) => {
-        const newUser = new User(req.body);
-        this.createRecord(newUser, res);
+        this.createRecord(new User(req.body), res);
     }
 
     public getUsers = (_req: Request, res: Response) => {
