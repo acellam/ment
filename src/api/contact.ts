@@ -5,7 +5,6 @@ export class Contact {
     public contactController: ContactController = new ContactController();
 
     public routes = (app: Application) => {
-        // All contacts
         app.route(`${process.env.API_BASE}contacts`)
             // GET endpoint
             .get(this.contactController.getContacts)

@@ -3,7 +3,6 @@ import { UserController } from "../controllers/user";
 
 export class User {
     public userController: UserController = new UserController();
-
     public routes = (app: Application) => {
         // All Users
         app.route(`${process.env.API_BASE}users`)
