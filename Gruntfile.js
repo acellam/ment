@@ -3,7 +3,6 @@ const webpackConfig = require("./webpack.config");
 const { merge } = require('webpack-merge');
 
 module.exports = function (grunt) {
-    const pkg = grunt.file.readJSON("package.json");
     grunt.initConfig({
         watch: getWatch(),
         webpack: getWebpack(),
@@ -14,7 +13,50 @@ module.exports = function (grunt) {
     });
 
     getGruntLibs(grunt);
+    registerGruntTasks(grunt);
+};
 
+function getWatch() {
+    return {
+        updateSourceFiles: {
+            files: ["./src/**/*"],
+            tasks: ["webpack:develop"],
+            options: {
+                debounceDelay: 250,
+                livereload: true
+            }
+        }
+    };
+}
+
+function getWebpack() {
+    return {
+        develop: webpackConfig,
+        developProd: webpackConfigDevProd,
+        release: webpackConfigRelease,
+        test: webpackConfigTest
+    };
+}
+
+function getClean() {
+    return {
+        build: [
+            "./dist/**/*",
+            "./dist/testresults/**/*",
+        ]
+    };
+}
+
+function getGruntLibs(grunt) {
+    grunt.loadNpmTasks("grunt-check-dependencies");
+    grunt.loadNpmTasks("grunt-contrib-clean");
+    grunt.loadNpmTasks("grunt-contrib-copy");
+    grunt.loadNpmTasks("grunt-contrib-watch");
+    grunt.loadNpmTasks("grunt-file-append");
+    grunt.loadNpmTasks("grunt-webpack");
+}
+
+function registerGruntTasks(grunt) {
     grunt.registerTask("default", ["clean build", "watch"]);
     grunt.registerTask(
         "clean build",
@@ -37,7 +79,7 @@ module.exports = function (grunt) {
         ["checkDependencies", "clean:build", "webpack:developProd"]
     );
     grunt.registerTask("build", ["clean build"]);
-};
+}
 
 const baseWebpackConfigTest = merge(webpackConfig, {
     devtool: false,
@@ -63,6 +105,7 @@ const webpackConfigDevProd= merge(baseWebpackConfigTest, {
         ]
     }
 });
+
 const webpackConfigRelease = merge(baseWebpackConfigTest, {
     mode: "production",
     module: {
@@ -82,45 +125,5 @@ function replaceStringInRule(filePattern, search, replace) {
                 search, replace
             }]
         }
-    };
-}
-
-function getGruntLibs(grunt) {
-    grunt.loadNpmTasks("grunt-check-dependencies");
-    grunt.loadNpmTasks("grunt-contrib-clean");
-    grunt.loadNpmTasks("grunt-contrib-copy");
-    grunt.loadNpmTasks("grunt-contrib-watch");
-    grunt.loadNpmTasks("grunt-file-append");
-    grunt.loadNpmTasks("grunt-webpack");
-}
-
-function getClean() {
-    return {
-        build: [
-            "./dist/**/*",
-            "./dist/testresults/**/*",
-        ]
-    };
-}
-
-function getWatch() {
-    return {
-        updateSourceFiles: {
-            files: ["./src/**/*"],
-            tasks: ["webpack:develop"],
-            options: {
-                debounceDelay: 250,
-                livereload: true
-            }
-        }
-    };
-}
-
-function getWebpack() {
-    return {
-        develop: webpackConfig,
-        developProd: webpackConfigDevProd,
-        release: webpackConfigRelease,
-        test: webpackConfigTest
     };
 }
