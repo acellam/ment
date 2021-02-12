@@ -49,15 +49,7 @@ const baseWebpackConfigTest = merge(webpackConfig, {
 const webpackConfigTest = merge(baseWebpackConfigTest, {
     module: {
         rules: [
-            {
-                test: /\.env$/,
-                loader: 'string-replace-loader',
-                options: {
-                    multiple: [{
-                        search: 'development', replace: 'test'
-                    }]
-                }
-            }
+            replaceStringInRule(/\.env$/, 'development', 'test')
         ]
     }
 });
@@ -66,24 +58,8 @@ const webpackConfigDevProd= merge(baseWebpackConfigTest, {
     mode: "development",
     module: {
         rules: [
-            {
-                test: /\.json$/,
-                loader: 'string-replace-loader',
-                options: {
-                    multiple: [{
-                        search: 'localhost:3000', replace: '165.227.247.77:3000'
-                    }]
-                }
-            },
-            {
-                test: /\.env$/,
-                loader: 'string-replace-loader',
-                options: {
-                    multiple: [{
-                        search: 'development', replace: 'production'
-                    }]
-                }
-            }
+            replaceStringInRule(/\.json$/, 'localhost:3000', '165.227.247.77:3000'),
+            replaceStringInRule(/\.env$/, 'development', 'production')
         ]
     }
 });
@@ -91,27 +67,23 @@ const webpackConfigRelease = merge(baseWebpackConfigTest, {
     mode: "production",
     module: {
         rules: [
-            {
-                test: /\.json$/,
-                loader: 'string-replace-loader',
-                options: {
-                    multiple: [{
-                        search: 'localhost:3000', replace: 'ment-backend.herokuapp.com:3000'
-                    }]
-                }
-            },
-            {
-                test: /\.env$/,
-                loader: 'string-replace-loader',
-                options: {
-                    multiple: [{
-                        search: 'development', replace: 'production'
-                    }]
-                }
-            }
+            replaceStringInRule(/\.json$/, 'localhost:3000', 'ment-backend.herokuapp.com:3000'),
+            replaceStringInRule(/\.env$/, 'development', 'production')
         ]
     }
 });
+
+function replaceStringInRule(filePattern, search, replace) {
+    return {
+        test: filePattern,
+        loader: 'string-replace-loader',
+        options: {
+            multiple: [{
+                search, replace
+            }]
+        }
+    };
+}
 
 function getGruntLibs(grunt) {
     grunt.loadNpmTasks("grunt-check-dependencies");
