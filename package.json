@@ -126,7 +126,7 @@
     "passport-jwt": "^4.0.0",
     "request": "^2.88.2",
     "requirejs": "^2.3.6",
-    "snyk": "^1.448.0",
+    "snyk": "^1.680.0",
     "swagger-ui-express": "^4.1.6",
     "winston": "^3.3.3"
   },
