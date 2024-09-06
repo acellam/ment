@@ -116,7 +116,7 @@
     "express-validator": "^6.0.0",
     "jsonwebtoken": "^8.5.1",
     "jwt-simple": "^0.5.6",
-    "moment": "^2.29.1",
+    "moment": "^2.29.2",
     "mongodb": "^3.6.4",
     "mongoose": "^5.12.2",
     "mongoose-data-seed": "^2.0.0",
